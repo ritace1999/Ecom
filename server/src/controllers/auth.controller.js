@@ -62,12 +62,12 @@ class AuthController {
           success: false,
         });
       } else {
-        const profile = req.files.map((file) => file.path);
+        // const profile = req.files.map((file) => file.path);
         //step 2: create a hash password of req.body.password
         req.body.password = await bcrypt.hash(req.body.password, 10);
         //step 3: create a jwt token for the user
         // const token = jwt.sign({ phoneNumber: req.body.phoneNumber }, process.env.SECRET_KEY);
-        const data = await User.create({ ...req.body, profile: profile });
+        const data = await User.create({ ...req.body });
         if (data) {
           const { password, ...otherFields } = data._doc;
           res.json({

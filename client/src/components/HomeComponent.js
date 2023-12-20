@@ -17,7 +17,7 @@ const HomeComponent = () => {
       <Head>
         <title>Home</title>
       </Head>
-      <div className="h-[100%] w-[100vw] bg-gray-500">
+      {/* <div className="h-[100%] w-[100vw] bg-gray-500">
         <div className="h-[350px] w-full">
           <Swiper
             effect={"coverflow"}
@@ -59,7 +59,7 @@ const HomeComponent = () => {
             </SwiperSlide>
           </Swiper>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

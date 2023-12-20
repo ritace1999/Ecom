@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { images } from "@/constants";
 import Link from "next/link";
 import { FiShoppingCart } from "react-icons/fi";
+import { BsSearch } from "react-icons/bs";
+import { IoBagHandle } from "react-icons/io5";
 
 import { useRouter } from "next/router";
 
@@ -35,18 +37,30 @@ const Nav = () => {
         />
       </div>
       <div className="flex gap-[50px] justify-center items-center">
-        <div className="flex gap-[50px] justify-center items-center">
-          <Link href={"/"}>Home</Link>
-          <Link href={"/"}>Categories</Link>
-          <Link href={"/"}>Brand</Link>
-          <Link href={"/"}>About</Link>
-        </div>
-        <div className="flex justify-center items-center relative">
-          <Link href={"/cart"} className="-mr-[820px]">
-            <FiShoppingCart className="text-2xl" />
-          </Link>
-          <div className="bg-white absolute right-[-424px] top-[-16px] h-[20px] w-[20px] text-center flex justify-center items-center rounded-full ">
-            <span className=" text-black font-semibold">1</span>
+        <div className="flex justify-between items-center w-[1000px] ml-[160px] ">
+          <div className="w-[80%] flex justify-center items-center">
+            <div className="rounded-l-md border-solid h-[35px] w-[30px] border-2 bg-black z-[1] flex justify-center items-center">
+              <BsSearch className="text-xl text-white  p-1  cursor-pointer  " />
+            </div>
+            <input
+              type="text"
+              placeholder="Search Products"
+              className="w-[100%] p-1 text-black rounded-l-none rounded-md focus:outline-none shadow-md border-solid border-2"
+            />
+          </div>
+
+          <div className="flex justify-center items-center relative">
+            <div className="flex justify-center items-center gap-[20px]">
+              <Link href={"/cart"} className="">
+                <IoBagHandle className="text-2xl" />
+              </Link>
+              <Link href={"/cart"} className="">
+                <FiShoppingCart className="text-2xl" />
+              </Link>
+            </div>
+            <div className="bg-white absolute ml-[52px]  top-[-16px] h-[20px] w-[20px] text-center flex justify-center items-center rounded-full ">
+              <span className=" text-black font-semibold">1</span>
+            </div>
           </div>
         </div>
       </div>

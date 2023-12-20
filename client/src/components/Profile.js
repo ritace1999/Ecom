@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { images } from "@/constants";
+import { getUserProfile } from "@/services/apiServices";
 import Image from "next/image";
 
 import { HiOutlineCamera } from "react-icons/hi2";
@@ -7,6 +8,16 @@ import Form from "./Form";
 
 const Profile = () => {
   const [hover, setHover] = useState(false);
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    (async () => {
+      var data = await getUserProfile(
+        JSON.parse(localStorage.getItem("account"))
+      );
+      setData(data);
+    })();
+  }, []);
 
   const handleHoverEnter = () => {
     setHover(true);
@@ -41,7 +52,7 @@ const Profile = () => {
           </div>
         )}
       </div>
-      <Form />
+      <Form data={data} />
     </div>
   );
 };

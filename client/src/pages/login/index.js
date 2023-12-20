@@ -24,6 +24,8 @@ function Login() {
     axios
       .post("http://localhost:4000/login", value)
       .then((res) => {
+        console.log(res?.data?.token);
+        localStorage.setItem("account", JSON.stringify(res?.data?.token));
         router.push("/");
         toast.success(res?.data?.msg);
       })

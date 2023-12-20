@@ -1,24 +1,45 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/form.module.css";
 import { HiEnvelope, HiFingerPrint, HiUser } from "react-icons/hi2";
+import { updateUserProfile } from "@/services/apiServices";
 
-const Form = () => {
+const Form = ({ data }) => {
   const [show, setShow] = useState({ oldPassword: false, newPassword: false });
+  console.log(data);
   const formik = useFormik({
     initialValues: {
-      name: "",
+      fullName: "",
       email: "",
       oldPassword: "",
       newPassword: "",
     },
 
-    onSubmit: async (values) => {
-      const { name, email, token } = values; // Extract token here
-      mutate({ name, email, token }); // Pass the token to updateProfile
+    onSubmit: async (values, data) => {
       console.log(values);
+      await updateUserProfile(
+        JSON.parse(localStorage.getItem("account")),
+        values
+      )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   });
+  useEffect(() => {
+    // Populate the form with profile data if it's available and loading has completed
+    if (data) {
+      formik.setValues({
+        fullName: data?.user?.fullName || "",
+        email: data?.user?.email || "",
+        oldPassword: null,
+        newPassword: "",
+      });
+    }
+  }, [data]);
   return (
     <div className="flex h-[80vh]">
       <div className="md:mt-[4px] mx-auto shadow-2xl shadow-blue-500/60 bg-slate-50  rounded-md w-[75%] md:w-[78%] lg:w-[45%]  md:h-[85%] ">
@@ -35,7 +56,7 @@ const Form = () => {
                     name="fullName"
                     placeholder="Full Name"
                     className={styles.input_text}
-                    {...formik.getFieldProps("name")}
+                    {...formik.getFieldProps("fullName")}
                   />
                   <span className="icon flex items-center px-4">
                     <HiUser size={20} />

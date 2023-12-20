@@ -25,10 +25,9 @@ class ProfileController {
         email,
         phone,
         address,
-      });
-      res.json({
-        success: "Profile Updated",
-      });
+      })
+        .then((res) => res.json(res))
+        .catch((err) => res.json(err));
     } catch (e) {
       next({
         msg: "Unable to fulfill request at the moment",
